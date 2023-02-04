@@ -79,9 +79,9 @@ router.post("/getcars", async (req, res) => {
   });
 
 //update
-router.put("/:id", async (req, res) => {
+router.put("/update", async (req, res) => {
   try {
-    const car = await car_details.findById(req.params.id);
+    const car = await car_details.findById(req.body.car_number);
     if (!car) {
       return res.status(404).send({ success: false, msg: "Car not found" });
     }
@@ -91,6 +91,8 @@ router.put("/:id", async (req, res) => {
       risk = "moderate";
     } else if (car.risk === "moderate") {
       risk = "high";
+    }else if (car.risk === "high"){
+      risk="high"
     }
 
     try {
