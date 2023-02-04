@@ -79,7 +79,7 @@ router.post("/getcars", async (req, res) => {
   });
 
 //update
-router.put("/:id", async (req, res) => {
+router.put("/update", async (req, res) => {
   try {
     const car = await car_details.findById(req.params.id);
     if (!car) {
