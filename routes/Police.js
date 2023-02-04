@@ -27,7 +27,7 @@ router.post("/police_officer", async (req, res) => {
   }
 });
 
-router.get("/get_police", async (req, res) => {
+router.post("/get_police", async (req, res) => {
   try {
     const details = await police_data.findOne({ id: req.body.id });
 
