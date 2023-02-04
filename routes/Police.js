@@ -6,7 +6,7 @@ const police_data = require("../modules/police_data");
 const user_data = require("../modules/user");
 
 const accountSid = 'AC35eef999d62b0716a45a001114c81252';
-const authToken = '0ec93794344c0eaf2332699354ef3cbe';
+const authToken = '5a01b9256cb009d4c222b0893786159f';
 
 const client = require('twilio')(accountSid, authToken);
 
