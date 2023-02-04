@@ -53,17 +53,18 @@ router.post("/save_Car", async (req, res) => {
 });
 
 //get car
-router.post("/getcar", async (req, res) => {
-  const filter = { car_number: req.body.car_number };
+router.get("/getcar/:id", async (req, res) => {
+  const filter = { _id: req.params.id };
 
-  const cursor = await car_details.findOne(filter);
+  const cursor = await car_details.findOne(filter, { "car_Details": 1 });
 
   if (cursor) {
     res.status(200).send({ success: true, data: cursor });
   } else {
-    res.status(200).send({ success: true, msg: "No Data Found" });
+    res.status(200).send({ success: false, msg: "No Data Found" });
   }
 });
+
 //getallcar
 router.get("/getcars", async (req, res) => {
   const filter = { police_station: req.body.police_station_id };
