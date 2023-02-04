@@ -81,7 +81,7 @@ router.post("/getcars", async (req, res) => {
 //update
 router.put("/update", async (req, res) => {
   try {
-    const car = await car_details.findById(req.params.id);
+    const car = await car_details.findById(req.body.car_number);
     if (!car) {
       return res.status(404).send({ success: false, msg: "Car not found" });
     }
