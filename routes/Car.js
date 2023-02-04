@@ -54,7 +54,7 @@ router.post("/save_Car", async (req, res) => {
 
 //get car
 router.get("/getcar/:id", async (req, res) => {
-  const filter = { _id: req.params.id };
+  const filter = { car_number: req.params.car_number };
 
   const cursor = await car_details.findOne(filter, { "car_Details": 1 });
 
@@ -64,6 +64,7 @@ router.get("/getcar/:id", async (req, res) => {
     res.status(200).send({ success: false, msg: "No Data Found" });
   }
 });
+
 
 //getallcar
 router.get("/getcars", async (req, res) => {
