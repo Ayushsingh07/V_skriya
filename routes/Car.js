@@ -56,7 +56,7 @@ router.post("/save_Car", async (req, res) => {
 router.get("/getcar/:id", async (req, res) => {
   const filter = { car_number: req.params.car_number };
 
-  const cursor = await car_details.findOne(filter, { "car_Details": 1 });
+  const cursor = await car_details.findOne(filter, { "car_Details": 1 ,"missing_details":1});
 
   if (cursor) {
     res.status(200).send({ success: true, data: cursor });
