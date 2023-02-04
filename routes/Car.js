@@ -53,7 +53,7 @@ router.post("/save_Car", async (req, res) => {
 });
 
 //get car
-router.get("/getcar", async (req, res) => {
+router.post("/getcar", async (req, res) => {
   const filter = { car_number: req.body.car_number };
 
   const cursor = await car_details.findOne(filter);
