@@ -92,6 +92,10 @@ router.put("/:id", async (req, res) => {
     } else if (car.risk === "moderate") {
       risk = "high";
     }
+    else if (car.risk === "high") {
+      risk = "high";
+    }
+    
 
     try {
       const update = await car_details.updateOne(
