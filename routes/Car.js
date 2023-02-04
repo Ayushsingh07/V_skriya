@@ -54,9 +54,9 @@ router.post("/save_Car", async (req, res) => {
 
 //get car
 router.get("/getcar/:id", async (req, res) => {
-  const filter = { car_number: req.params.car_number };
+  const filter = { _id: req.params.id };
 
-  const cursor = await car_details.findOne(filter, { "car_Details": 1 ,"missing_details":1,"owner":1});
+  const cursor = await car_details.findOne(filter);
 
   if (cursor) {
     res.status(200).send({ success: true, data: cursor });
@@ -69,7 +69,7 @@ router.get("/getcar/:id", async (req, res) => {
 //getallcar
 router.get("/getcars", async (req, res) => {
   const filter = { police_station: req.body.police_station_id };
-  const cursor = await car_details.find(filter, { "missing_details": 1 });
+  const cursor = await car_details.find(filter);
   
   if (cursor) {
   res.status(200).send({ success: true, data: cursor });
