@@ -156,31 +156,31 @@ router.get("/frompython/:car_number", async (req, res) => {
     console.log("not");
     res.status(200).send({ success: true, msg: "No Data Found" });
   }
-  const userToken = cursor.user_token;
-  const notification = {
-      title: "Your car has been found!",
-      body: "We have found your missing car. Please contact the police station for more information.",
-    };
+  // const userToken = cursor.user_token;
+  // const notification = {
+  //     title: "Your car has been found!",
+  //     body: "We have found your missing car. Please contact the police station for more information.",
+  //   };
   
-  var topic = 'general';
+  // var topic = 'general';
   
-  var message = {
-    notification: {
-      title: 'Your car has been found!',
-      body: 'We have found your missing car. Please contact the police station for more information.'
-    },
-    topic: topic
-  };
+  // var message = {
+  //   notification: {
+  //     title: 'Your car has been found!',
+  //     body: 'We have found your missing car. Please contact the police station for more information.'
+  //   },
+  //   topic: topic
+  // };
   
-  // Send a message to devices subscribed to the provided topic.
-  admin.messaging().send(message)
-    .then((response) => {
-      // Response is a message ID string.
-      console.log('Successfully sent message:', response);
-    })
-    .catch((error) => {
-      console.log('Error sending message:', error);
-  });
+  // // Send a message to devices subscribed to the provided topic.
+  // admin.messaging().send(message)
+  //   .then((response) => {
+  //     // Response is a message ID string.
+  //     console.log('Successfully sent message:', response);
+  //   })
+  //   .catch((error) => {
+  //     console.log('Error sending message:', error);
+  // });
 }); 
 
 
