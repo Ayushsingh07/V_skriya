@@ -117,4 +117,70 @@ router.post("/found_car_msg", async (req, res) => {
   }
   res.end();
 })
+
+
+
+
+router.get("/frompython/:car_number", async (req, res) => {
+  const cursor = await user_data.findOne({ car_number: req.params.car_number });
+
+  if (cursor) {
+    client.messages
+      .create({
+        body:  `Your car has been located at ${cursor.place_of_missing}`,
+        messagingServiceSid: 'MG7643cb3f1dbe45621f22f3ab8f493bdc',
+        to: '+916397942636'
+      })
+      .then(message => {})
+      .done();
+
+    client.messages
+      .create({
+        body: `Your car has been located at ${cursor.place_of_missing}`,
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+916397942636'
+      })
+      .then(message => {})
+      .done();
+    console.log("yes");
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    console.log("not");
+    res.status(200).send({ success: true, msg: "No Data Found" });
+  }
+  const userToken = cursor.user_token;
+  const notification = {
+      title: "Your car has been found!",
+      body: "We have found your missing car. Please contact the police station for more information.",
+    };
+    var admin = require("firebase-admin");
+  var serviceAccount = require("../service.json");
+  
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://smart-interceptor-d670e-default-rtdb.firebaseio.com/"
+  });
+  
+  var topic = 'general';
+  
+  var message = {
+    notification: {
+      title: 'Your car has been found!',
+      body: 'We have found your missing car. Please contact the police station for more information.'
+    },
+    topic: topic
+  };
+  
+  // Send a message to devices subscribed to the provided topic.
+  admin.messaging().send(message)
+    .then((response) => {
+      // Response is a message ID string.
+      console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+      console.log('Error sending message:', error);
+  });
+}); 
+
+
 module.exports = router;

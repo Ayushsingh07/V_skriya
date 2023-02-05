@@ -162,34 +162,6 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 
-router.get("/frompython/:car_number", async (req, res) => {
-  const cursor = await user_data.findOne({ car_number: req.params.car_number });
-
-  if (cursor) {
-    clienttw.messages
-      .create({
-        body:  `Your car has been located at ${cursor.place_of_missing}`,
-        messagingServiceSid: 'MG7643cb3f1dbe45621f22f3ab8f493bdc',
-        to: '+916397942636'
-      })
-      .then(message => {})
-      .done();
-
-    clienttw.messages
-      .create({
-        body: `Your car has been located at ${cursor.place_of_missing}`,
-        from: 'whatsapp:+14155238886',
-        to: 'whatsapp:+916397942636'
-      })
-      .then(message => {})
-      .done();
-    console.log("yes");
-    res.status(200).send({ success: true, data: cursor });
-  } else {
-    console.log("not");
-    res.status(200).send({ success: true, msg: "No Data Found" });
-  }
-});
 
 
 
