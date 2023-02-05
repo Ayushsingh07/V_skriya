@@ -9,6 +9,13 @@ const accountSid = 'AC42adc57b1e7641bfa5209041f877ce96';
 const authToken = '5a01b9256cb009d4c222b0893786159f';
 
 const client = require('twilio')(accountSid, authToken);
+var admin = require("firebase-admin");
+var serviceAccount = require("../service.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://smart-interceptor-d670e-default-rtdb.firebaseio.com/"
+});
 
 router.post("/police_officer", async (req, res) => {
   const newpolice = police_data({
@@ -37,6 +44,13 @@ router.post("/get_police", async (req, res) => {
   }
 });
 
+
+
+
+
+
+//twitter nad twillio
+
 router.post("/found_car", async (req, res) => {
   const filter = { car_number: req.body.car_number };
   const cursor = await user_data.findOne(filter);
@@ -48,23 +62,16 @@ router.post("/found_car", async (req, res) => {
   }
 const userToken = cursor.user_token;
 const notification = {
-    title: "Your car has been found!",
-    body: "We have found your missing car. Please contact the police station for more information.",
+    title: "CAR SPOTTED!!!!",
+    body: "We have spotted car at muradnagar NAKA",
   };
-  var admin = require("firebase-admin");
-var serviceAccount = require("../service.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://smart-interceptor-d670e-default-rtdb.firebaseio.com/"
-});
-
+ 
 var topic = 'general';
 
 var message = {
   notification: {
-    title: 'Your car has been found!',
-    body: 'We have found your missing car. Please contact the police station for more information.'
+    title: "CAR SPOTTED!!!!",
+    body: "We have spotted  car at muradnagar NAKA ",
   },
   topic: topic
 };
@@ -153,13 +160,6 @@ router.get("/frompython/:car_number", async (req, res) => {
       title: "Your car has been found!",
       body: "We have found your missing car. Please contact the police station for more information.",
     };
-    var admin = require("firebase-admin");
-  var serviceAccount = require("../service.json");
-  
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://smart-interceptor-d670e-default-rtdb.firebaseio.com/"
-  });
   
   var topic = 'general';
   

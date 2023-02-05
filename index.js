@@ -12,7 +12,7 @@ app.use(express.json());
 dotenv.config();
 
 // constants
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 
 // database connection
 mongoose.set("strictQuery", false);
