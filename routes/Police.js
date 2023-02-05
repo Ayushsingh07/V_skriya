@@ -5,7 +5,7 @@ const police = require("../modules/police");
 const police_data = require("../modules/police_data");
 const user_data = require("../modules/user");
 
-const accountSid = 'AC35eef999d62b0716a45a001114c81252';
+const accountSid = 'AC42adc57b1e7641bfa5209041f877ce96';
 const authToken = '5a01b9256cb009d4c222b0893786159f';
 
 const client = require('twilio')(accountSid, authToken);
@@ -46,8 +46,6 @@ router.post("/found_car", async (req, res) => {
       message: "Car not found",
     });
   }
-
-
 const userToken = cursor.user_token;
 const notification = {
     title: "Your car has been found!",
