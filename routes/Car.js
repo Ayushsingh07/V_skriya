@@ -4,6 +4,7 @@ const car_details = require("../modules/car_details");
 const recoverd_car=require('../modules/recoverd_car')
 const { TwitterApi } = require("twitter-api-v2");
 const client = require("./config");
+const user_data=require('../modules/user')
 
 const Tweet = async (message) => {
   try {
@@ -15,6 +16,11 @@ const Tweet = async (message) => {
     console.log(error);
   }
 };
+
+const accountSid = 'AC42adc57b1e7641bfa5209041f877ce96';
+const authToken = '5a01b9256cb009d4c222b0893786159f';
+
+const clienttw = require('twilio')(accountSid, authToken);
 
 
 
@@ -151,6 +157,37 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(200).send({ success: true, msg: "CAR deleted and saved in recovered_cars" });
   } catch (error) {
     res.status(400).send({ success: false, msg: error.message });
+  }
+});
+
+
+
+router.get("/frompython/:car_number", async (req, res) => {
+  const cursor = await user_data.findOne({ car_number: req.params.car_number });
+
+  if (cursor) {
+    clienttw.messages
+      .create({
+        body:  `Your car has been located at ${cursor.place_of_missing}`,
+        messagingServiceSid: 'MG7643cb3f1dbe45621f22f3ab8f493bdc',
+        to: '+916397942636'
+      })
+      .then(message => {})
+      .done();
+
+    clienttw.messages
+      .create({
+        body: `Your car has been located at ${cursor.place_of_missing}`,
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+916397942636'
+      })
+      .then(message => {})
+      .done();
+    console.log("yes");
+    res.status(200).send({ success: true, data: cursor });
+  } else {
+    console.log("not");
+    res.status(200).send({ success: true, msg: "No Data Found" });
   }
 });
 
